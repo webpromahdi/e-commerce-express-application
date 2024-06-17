@@ -15,7 +15,7 @@ const inventoryValidationSchema = z.object({
 });
 
 const productValidationSchema = z.object({
-  name: z.string().nonempty({ message: 'Product name is required' }),
+  name: z.string().nonempty('Product name is required'),
   description: z
     .string()
     .nonempty({ message: 'Product description is required' }),
