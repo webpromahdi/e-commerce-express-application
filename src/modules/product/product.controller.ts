@@ -78,11 +78,39 @@ const getAllProducts = async (req: Request, res: Response) => {
 
 const getSingleProduct = async (req: Request, res: Response) => {
   try {
-    const { productID } = req.params;
-    const result = await productServices.getSingleProductFromDB(productID);
+    const { productId } = req.params;
+    const result = await productServices.getSingleProductFromDB(productId);
     return res.status(200).json({
       success: true,
       message: 'Product data is found successfully',
+      data: result,
+    });
+  } catch (err) {
+    if (err instanceof Error) {
+      res.status(500).json({
+        success: false,
+        message: err.message,
+      });
+    } else {
+      res.status(500).json({
+        success: false,
+        message: 'An unknown error occurred',
+      });
+    }
+  }
+};
+
+const updateSingleProduct = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+    const updateData = req.body;
+    const result = await productServices.updateSingleProductFromDB(
+      productId,
+      updateData,
+    );
+    return res.status(200).json({
+      success: true,
+      message: 'Product data is updated successfully',
       data: result,
     });
   } catch (err) {
@@ -104,4 +132,5 @@ export const productControllers = {
   createProduct,
   getAllProducts,
   getSingleProduct,
+  updateSingleProduct,
 };

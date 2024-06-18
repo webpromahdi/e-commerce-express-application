@@ -38,8 +38,35 @@ const getSingleProductFromDB = async (_id: string) => {
   }
 };
 
+const updateSingleProductFromDB = async (
+  _id: string,
+  updateData: Partial<Tproduct>,
+) => {
+  let client: MongoClient | null = null;
+  try {
+    client = await MongoClient.connect(config.database_url as string);
+    const db = client.db(config.db_name);
+    const result = await db
+      .collection('products')
+      .findOneAndUpdate(
+        { _id: new ObjectId(_id) },
+        { $set: updateData },
+        { returnDocument: 'after' },
+      );
+    if (!result) {
+      throw new Error('Product not found');
+    }
+    return result;
+  } finally {
+    if (client) {
+      await client.close();
+    }
+  }
+};
+
 export const productServices = {
   createProductIntoDB,
   getAllProductFromDB,
   getSingleProductFromDB,
+  updateSingleProductFromDB,
 };
