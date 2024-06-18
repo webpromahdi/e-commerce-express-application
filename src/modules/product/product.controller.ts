@@ -56,9 +56,9 @@ const getAllProducts = async (req: Request, res: Response) => {
         data: result,
       });
     } else {
-      res.status(200).json({
-        success: true,
-        message: 'Data fetching successful but there is no product data!',
+      res.status(500).json({
+        success: false,
+        message: 'Orders not found',
       });
     }
   } catch (err) {
