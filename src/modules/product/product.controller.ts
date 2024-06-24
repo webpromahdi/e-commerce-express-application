@@ -86,6 +86,10 @@ const getSingleProduct = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (err) {
+    console.error(
+      `Error fetching product with ID ${req.params.productId}:`,
+      err,
+    );
     if (err instanceof Error) {
       res.status(500).json({
         success: false,

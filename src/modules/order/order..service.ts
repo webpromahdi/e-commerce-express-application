@@ -3,13 +3,14 @@ import { ProductModel } from '../product..model';
 import { Torder } from './order.interface';
 
 const createOrderIntoDB = async (newOrder: Torder) => {
+  //most important to apply inventory management logic
   // finding the product to check inventory
   const product = await ProductModel.findById(newOrder.productId);
   if (!product) {
     throw new Error('Product not found');
   }
   if (product.inventory.quantity < newOrder.quantity) {
-    throw new Error('Insufficient stock');
+    throw new Error('Insufficient quantity available in inventory');
   }
 
   // Creating the order
