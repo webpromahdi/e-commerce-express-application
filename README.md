@@ -1,0 +1,2 @@
+How I  run the application locally?
+First I finished the setup of this express application. Then I connected this  application with MongoDB to collect data and show data from the database. Also I converted the typescript files in Javascript files in the dist folder. Because, to run this application, we need a js file. Typescript file can not run in Browser. After all the setup was done, I installed nodemon for updating the server continuously when any changes were made. Then I run this application in the terminal using nodemon. 
